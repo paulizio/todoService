@@ -1,0 +1,31 @@
+{
+    "name": "todoService",
+    "description": "todo backend",
+    "version": "0.0.1",
+    "private": true,
+    "dependencies": {
+        "aws-sdk": "^2.1360.0",
+        "standard": "^17.0.0",
+        "uuid": "^9.0.0"
+    },
+    "devDependencies": {
+        "chai": "^4.3.7",
+        "jest": "^29.2.1",
+        "mocha": "^10.2.0",
+        "sinon": "^15.0.3",
+        "sinon-chai": "^3.7.0"
+    },
+    "scripts": {
+        "test": "mocha \"test/**/*.js\" --reporter list",
+        "lint": "standard",
+        "predeploy": "sam build && aws s3 cp ./apigw/openapi.yaml s3://todoservice-openapi-bucket",
+        "deploy": "sam deploy --stack-name todoService --s3-bucket todoservice-openapi-bucket --capabilities CAPABILITY_IAM",
+        "fix": "standard --fix"
+    },
+    "jest": {
+        "moduleFileExtensions": [
+            "mjs",
+            "js"
+        ]
+    }
+}

@@ -1,0 +1,4 @@
+/todo/{id}:
+  $ref: './todo-by-id.yaml'
+/todo:
+  $ref: './todo.yaml'

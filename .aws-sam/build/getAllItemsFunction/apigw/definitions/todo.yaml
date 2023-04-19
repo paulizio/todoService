@@ -1,0 +1,8 @@
+type: object
+required:
+  - task
+properties:
+  task: 
+    type: string
+  id:
+    type: string

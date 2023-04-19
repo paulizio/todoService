@@ -1,0 +1,44 @@
+get:
+    responses:
+      200:
+        description: "Todos successfully fetched"
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Todo'
+    x-amazon-apigateway-integration:
+      payloadFormatVersion: "2.0"
+      type: "aws_proxy"
+      httpMethod: "POST"
+      uri: 
+        Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${getAllItemsFunction.Arn}/invocations"
+      responses:
+        default:
+          statusCode: '200'
+post:
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            title: TodoPayload
+            $ref: '#/components/schemas/Todo'
+
+    responses:
+      201:
+        description: "Todo created successfully"
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Todo'
+    x-amazon-apigateway-integration:
+      type: "aws_proxy"
+      httpMethod: "POST"
+      contentHandling: "CONVERT_TO_TEXT"
+      uri: 
+        Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${putItemFunction.Arn}/invocations"
+      responses:
+        default:
+          statusCode: '201'
